@@ -1,2 +1,4 @@
 _opam/
 .vscode/
+_build/
+lib/.merlin
