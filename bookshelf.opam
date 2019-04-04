@@ -1,0 +1,15 @@
+opam-version: "2.0"
+name: "bookshelf"
+version: "1.0.0"
+synopsis: "bookshelf, add remove books from shelves"
+maintainer: "Alex <abortoc@gmail.com>"
+
+depends: [
+  "jbuilder" {build}
+  "dune"
+  "lwt"
+  "lwt_ppx"
+  "caqti"
+  "caqti-lwt"
+  "caqti-driver-postgresql"
+]

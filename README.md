@@ -1,0 +1,1 @@
+Bookshelf is a relatively simple project in OCaml that allows the user to add, remove, update books on two shelves: read and to read. Data is stored in a Postgres database.
