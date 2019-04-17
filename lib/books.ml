@@ -10,6 +10,7 @@ type book = {
   book_id: int;
   author: string;
   title: string;
+  date: string;
 }
 
 type error =
@@ -22,79 +23,158 @@ let or_error m =
   | Ok a -> Ok a |> Lwt.return
   | Error e -> Error (Database_error (Caqti_error.show e)) |> Lwt.return
 
-let migrate_query =
+let migrate_read_query =
   Caqti_request.exec
     Caqti_type.unit
     {| CREATE TABLE read (
           book_id SERIAL NOT NULL PRIMARY KEY,
           author VARCHAR NOT NULL,
-          title VARCHAR NOT NULL UNIQUE
+          title VARCHAR NOT NULL UNIQUE,
+          date VARCHAR NOT NULL
        )
     |}
 
-let migrate () =
+let migrate_read () =
   let migrate' (module C : Caqti_lwt.CONNECTION) =
-    C.exec migrate_query ()
+    C.exec migrate_read_query ()
   in
   Caqti_lwt.Pool.use migrate' pool |> or_error
 
 
-let rollback_query =
+let rollback_read_query =
   Caqti_request.exec
     Caqti_type.unit
     "DROP TABLE read"
 
-let rollback () =
+let rollback_read () =
   let rollback' (module C : Caqti_lwt.CONNECTION) =
-    C.exec rollback_query ()
+    C.exec rollback_read_query ()
   in
   Caqti_lwt.Pool.use rollback' pool |> or_error
   
 
-(* Stub these out for now. *)
-let get_all_query =
+let get_all_read_query =
   Caqti_request.collect
     Caqti_type.unit
-    Caqti_type.(tup3 int string string)
-    "SELECT book_id, author, title FROM read"
+    Caqti_type.(tup4 int string string string)
+    "SELECT book_id, author, title, date FROM read"
 
-let get_all () =
+let get_all_read () =
   let get_all' (module C : Caqti_lwt.CONNECTION) =
-    C.fold get_all_query (fun (book_id, author, title) acc ->
-        { book_id; author; title } :: acc
+    C.fold get_all_read_query (fun (book_id, author, title, date) acc ->
+        { book_id; author; title; date } :: acc
       ) () []
   in
   Caqti_lwt.Pool.use get_all' pool |> or_error
 
-let add_query =
+let add_read_query =
   Caqti_request.exec
-    Caqti_type.(tup2 string string)
-    "INSERT INTO read (author, title) VALUES (?, ?)"
+    Caqti_type.(tup3 string string string)
+    "INSERT INTO read (author, title, date) VALUES (?, ?, ?)"
 
-let add author title =
-  let add' author title (module C : Caqti_lwt.CONNECTION) =
-    C.exec add_query (author, title)
+let add_read author title date =
+  let add' author title date (module C : Caqti_lwt.CONNECTION) =
+    C.exec add_read_query (author, title, date)
   in
-  Caqti_lwt.Pool.use (add' author title) pool |> or_error
+  Caqti_lwt.Pool.use (add' author title date) pool |> or_error
 
-let remove_query =
+let remove_read_query =
   Caqti_request.exec
     Caqti_type.int
     "DELETE FROM read WHERE book_id = ?"
 
-let remove book_id =
+let remove_read book_id =
   let remove' book_id (module C : Caqti_lwt.CONNECTION) =
-    C.exec remove_query book_id
+    C.exec remove_read_query book_id
   in
   Caqti_lwt.Pool.use (remove' book_id) pool |> or_error
 
-let clear_query =
+let clear_read_query =
   Caqti_request.exec
     Caqti_type.unit
     "TRUNCATE TABLE read"
 
-let clear () =
+let clear_read () =
   let clear' (module C : Caqti_lwt.CONNECTION) =
-    C.exec clear_query ()
+    C.exec clear_read_query ()
+  in
+  Caqti_lwt.Pool.use clear' pool |> or_error
+
+
+
+let migrate_toread_query =
+  Caqti_request.exec
+    Caqti_type.unit
+    {| CREATE TABLE toread (
+          book_id SERIAL NOT NULL PRIMARY KEY,
+          author VARCHAR NOT NULL,
+          title VARCHAR NOT NULL UNIQUE,
+          date VARCHAR NOT NULL
+       )
+    |}
+
+let migrate_toread () =
+  let migrate' (module C : Caqti_lwt.CONNECTION) =
+    C.exec migrate_toread_query ()
+  in
+  Caqti_lwt.Pool.use migrate' pool |> or_error
+
+
+let rollback_toread_query =
+  Caqti_request.exec
+    Caqti_type.unit
+    "DROP TABLE toread"
+
+let rollback_toread () =
+  let rollback' (module C : Caqti_lwt.CONNECTION) =
+    C.exec rollback_toread_query ()
+  in
+  Caqti_lwt.Pool.use rollback' pool |> or_error
+  
+
+let get_all_toread_query =
+  Caqti_request.collect
+    Caqti_type.unit
+    Caqti_type.(tup4 int string string string)
+    "SELECT book_id, author, title, date FROM toread"
+
+let get_all_toread () =
+  let get_all' (module C : Caqti_lwt.CONNECTION) =
+    C.fold get_all_toread_query (fun (book_id, author, title, date) acc ->
+        { book_id; author; title; date } :: acc
+      ) () []
+  in
+  Caqti_lwt.Pool.use get_all' pool |> or_error
+
+let add_toread_query =
+  Caqti_request.exec
+    Caqti_type.(tup3 string string string)
+    "INSERT INTO toread (author, title, date) VALUES (?, ?, ?)"
+
+let add_toread author title date =
+  let add' author title date (module C : Caqti_lwt.CONNECTION) =
+    C.exec add_toread_query (author, title, date)
+  in
+  Caqti_lwt.Pool.use (add' author title date) pool |> or_error
+
+let remove_toread_query =
+  Caqti_request.exec
+    Caqti_type.int
+    "DELETE FROM toread WHERE book_id = ?"
+
+let remove_toread book_id =
+  let remove' book_id (module C : Caqti_lwt.CONNECTION) =
+    C.exec remove_toread_query book_id
+  in
+  Caqti_lwt.Pool.use (remove' book_id) pool |> or_error
+
+let clear_toread_query =
+  Caqti_request.exec
+    Caqti_type.unit
+    "TRUNCATE TABLE toread"
+
+let clear_toread () =
+  let clear' (module C : Caqti_lwt.CONNECTION) =
+    C.exec clear_toread_query ()
   in
   Caqti_lwt.Pool.use clear' pool |> or_error
