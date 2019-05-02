@@ -1,0 +1,43 @@
+EXCLUDE_QUERY_DIR
+B /home/alex/bookshelf/_opam/lib/bytes
+B /home/alex/bookshelf/_opam/lib/caqti
+B /home/alex/bookshelf/_opam/lib/caqti-driver-postgresql
+B /home/alex/bookshelf/_opam/lib/caqti-lwt
+B /home/alex/bookshelf/_opam/lib/logs
+B /home/alex/bookshelf/_opam/lib/lwt
+B /home/alex/bookshelf/_opam/lib/lwt/unix
+B /home/alex/bookshelf/_opam/lib/mmap
+B /home/alex/bookshelf/_opam/lib/ocaml
+B /home/alex/bookshelf/_opam/lib/ocaml/threads
+B /home/alex/bookshelf/_opam/lib/postgresql
+B /home/alex/bookshelf/_opam/lib/ptime
+B /home/alex/bookshelf/_opam/lib/re
+B /home/alex/bookshelf/_opam/lib/re/posix
+B /home/alex/bookshelf/_opam/lib/result
+B /home/alex/bookshelf/_opam/lib/seq
+B /home/alex/bookshelf/_opam/lib/stringext
+B /home/alex/bookshelf/_opam/lib/uri
+B ../_build/default/bin/.migrate.eobjs/byte
+B ../_build/default/lib/.lib.objs/byte
+S /home/alex/bookshelf/_opam/lib/bytes
+S /home/alex/bookshelf/_opam/lib/caqti
+S /home/alex/bookshelf/_opam/lib/caqti-driver-postgresql
+S /home/alex/bookshelf/_opam/lib/caqti-lwt
+S /home/alex/bookshelf/_opam/lib/logs
+S /home/alex/bookshelf/_opam/lib/lwt
+S /home/alex/bookshelf/_opam/lib/lwt/unix
+S /home/alex/bookshelf/_opam/lib/mmap
+S /home/alex/bookshelf/_opam/lib/ocaml
+S /home/alex/bookshelf/_opam/lib/ocaml/threads
+S /home/alex/bookshelf/_opam/lib/postgresql
+S /home/alex/bookshelf/_opam/lib/ptime
+S /home/alex/bookshelf/_opam/lib/re
+S /home/alex/bookshelf/_opam/lib/re/posix
+S /home/alex/bookshelf/_opam/lib/result
+S /home/alex/bookshelf/_opam/lib/seq
+S /home/alex/bookshelf/_opam/lib/stringext
+S /home/alex/bookshelf/_opam/lib/uri
+S .
+S ../lib
+FLG -ppx '/home/alex/bookshelf/_build/default/.ppx/95c43a5e8eeb6d851e1995d1bca87765/ppx.exe --as-ppx'
+FLG -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs

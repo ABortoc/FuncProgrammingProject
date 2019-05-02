@@ -178,3 +178,8 @@ let clear_toread () =
     C.exec clear_toread_query ()
   in
   Caqti_lwt.Pool.use clear' pool |> or_error
+
+let print_book bk =
+  Printf.printf "%s " bk.author;
+  Printf.printf "%s " bk.title;
+  Printf.printf "%s\n" bk.date;

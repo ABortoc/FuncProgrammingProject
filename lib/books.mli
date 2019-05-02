@@ -23,3 +23,5 @@ val get_all_toread : unit -> (book list, error) result Lwt.t
 val add_toread : string -> string -> string -> (unit, error) result Lwt.t
 val remove_toread : int -> (unit, error) result Lwt.t
 val clear_toread : unit -> (unit, error) result Lwt.t
+
+val print_book : book -> unit
