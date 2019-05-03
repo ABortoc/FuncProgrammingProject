@@ -1,4 +1,4 @@
 (executables
-  (names migrate rollback)
+  (names migrate rollback getread addread)
   (libraries lib lwt.unix)
   (preprocess (pps lwt_ppx)))
