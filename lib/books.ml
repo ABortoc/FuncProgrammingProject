@@ -180,6 +180,7 @@ let clear_toread () =
   Caqti_lwt.Pool.use clear' pool |> or_error
 
 let print_book bk =
-  Printf.printf "%s " bk.author;
-  Printf.printf "%s " bk.title;
-  Printf.printf "%s\n" bk.date;
+  Printf.printf "Author: %s " bk.author;
+  Printf.printf "Title: %s " bk.title;
+  Printf.printf "Release date: %s " bk.date;
+  Printf.printf "Book ID: %d\n" bk.book_id;

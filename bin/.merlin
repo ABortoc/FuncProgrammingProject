@@ -17,7 +17,7 @@ B /home/alex/bookshelf/_opam/lib/result
 B /home/alex/bookshelf/_opam/lib/seq
 B /home/alex/bookshelf/_opam/lib/stringext
 B /home/alex/bookshelf/_opam/lib/uri
-B ../_build/default/bin/.migrate.eobjs/byte
+B ../_build/default/bin/.migrateread.eobjs/byte
 B ../_build/default/lib/.lib.objs/byte
 S /home/alex/bookshelf/_opam/lib/bytes
 S /home/alex/bookshelf/_opam/lib/caqti
