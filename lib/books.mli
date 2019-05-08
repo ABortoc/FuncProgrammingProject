@@ -8,13 +8,10 @@ type book = {
 type error =
   | Database_error of string
 
-(* Migrations-related helper functions. *)
-val migrate_read : unit -> (unit, error) result Lwt.t
-val rollback_read : unit -> (unit, error) result Lwt.t
-val migrate_toread : unit -> (unit, error) result Lwt.t
-val rollback_toread : unit -> (unit, error) result Lwt.t
-
-(* Core functions *)
+val create_read : unit -> (unit, error) result Lwt.t
+val drop_read : unit -> (unit, error) result Lwt.t
+val create_toread : unit -> (unit, error) result Lwt.t
+val drop_toread : unit -> (unit, error) result Lwt.t
 val get_all_read : unit -> (book list, error) result Lwt.t
 val add_read : string -> string -> string -> (unit, error) result Lwt.t
 val remove_read : int -> (unit, error) result Lwt.t

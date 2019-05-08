@@ -1,6 +1,6 @@
 let connection_url = "postgresql://postgres:1990@localhost:5432/Books"
 
-(* This is the connection pool we will use for executing DB operations. *)
+(* This is the connection pool used for executing DB operations. *)
 let pool =
   match Caqti_lwt.connect_pool ~max_size:10 (Uri.of_string connection_url) with
   | Ok pool -> pool
@@ -16,14 +16,13 @@ type book = {
 type error =
   | Database_error of string
 
-(* Helper method to map Caqti errors to our own error type. 
-   val or_error : ('a, [> Caqti_error.t ]) result Lwt.t -> ('a, error) result Lwt.t *)
+(* Converts Caqti errors to the implemented database error definition *)
 let or_error m =
   match%lwt m with
   | Ok a -> Ok a |> Lwt.return
   | Error e -> Error (Database_error (Caqti_error.show e)) |> Lwt.return
 
-let migrate_read_query =
+let create_read_query =
   Caqti_request.exec
     Caqti_type.unit
     {| CREATE TABLE read (
@@ -34,23 +33,23 @@ let migrate_read_query =
        )
     |}
 
-let migrate_read () =
-  let migrate' (module C : Caqti_lwt.CONNECTION) =
-    C.exec migrate_read_query ()
+let create_read () =
+  let create' (module C : Caqti_lwt.CONNECTION) =
+    C.exec create_read_query ()
   in
-  Caqti_lwt.Pool.use migrate' pool |> or_error
+  Caqti_lwt.Pool.use create' pool |> or_error
 
 
-let rollback_read_query =
+let drop_read_query =
   Caqti_request.exec
     Caqti_type.unit
     "DROP TABLE read"
 
-let rollback_read () =
-  let rollback' (module C : Caqti_lwt.CONNECTION) =
-    C.exec rollback_read_query ()
+let drop_read () =
+  let drop' (module C : Caqti_lwt.CONNECTION) =
+    C.exec drop_read_query ()
   in
-  Caqti_lwt.Pool.use rollback' pool |> or_error
+  Caqti_lwt.Pool.use drop' pool |> or_error
   
 
 let get_all_read_query =
@@ -102,7 +101,7 @@ let clear_read () =
 
 
 
-let migrate_toread_query =
+let create_toread_query =
   Caqti_request.exec
     Caqti_type.unit
     {| CREATE TABLE toread (
@@ -113,23 +112,23 @@ let migrate_toread_query =
        )
     |}
 
-let migrate_toread () =
-  let migrate' (module C : Caqti_lwt.CONNECTION) =
-    C.exec migrate_toread_query ()
+let create_toread () =
+  let create' (module C : Caqti_lwt.CONNECTION) =
+    C.exec create_toread_query ()
   in
-  Caqti_lwt.Pool.use migrate' pool |> or_error
+  Caqti_lwt.Pool.use create' pool |> or_error
 
 
-let rollback_toread_query =
+let drop_toread_query =
   Caqti_request.exec
     Caqti_type.unit
     "DROP TABLE toread"
 
-let rollback_toread () =
-  let rollback' (module C : Caqti_lwt.CONNECTION) =
-    C.exec rollback_toread_query ()
+let drop_toread () =
+  let drop' (module C : Caqti_lwt.CONNECTION) =
+    C.exec drop_toread_query ()
   in
-  Caqti_lwt.Pool.use rollback' pool |> or_error
+  Caqti_lwt.Pool.use drop' pool |> or_error
   
 
 let get_all_toread_query =

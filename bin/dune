@@ -1,6 +1,6 @@
 (executables
-  (names migrateread rollbackread getread addread removeread
-  clearread migratetoread rollbacktoread gettoread addtoread 
+  (names createread dropread getread addread removeread
+  clearread createtoread droptoread gettoread addtoread 
   removetoread cleartoread)
   (libraries lib lwt.unix)
   (preprocess (pps lwt_ppx)))
