@@ -9,9 +9,9 @@ The project uses password "1990", it can be editted to the desired password in B
 Run db_script, build_script, move_script. If everything worked, executables folder should have been created with all the  
 executables inside it.  
 
-db_script will create a database in postgres
-build_script will build executables  
-move_script will create an executables folder and move all the executables into it
+**db_script** will create a database in postgres  
+**build_script** will build executables  
+**move_script** will create an executables folder and move all the executables into it
 
 **createread/createtoread** - creates respective tables in the database  
 **dropread/droptoread** - drops respective tables from the database  
