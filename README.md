@@ -19,3 +19,9 @@ move_script will create an executables folder and move all the executables into 
 **addread/addtoread** - adds a book to the respective table, takes 3 strings (Author, Title, Date) as arguments in the command line  
 **removeread/removetoread** - removes a book from the respective table, takes 1 int(Book ID) as an argument in the command line, ID can be looked up from the getread function  
 **clearread/cleartoread** - removes all books from the respective table, preserves the table  
+
+**Running**  
+Run main.exe with above function names as a console argument in the first position and the rest of arguments filled as necessary as in the  case with addread/addtoread and removeread/removetoread  
+
+**Reference**  
+https://medium.com/@bobbypriambodo/interfacing-ocaml-and-postgresql-with-caqti-a92515bdaa11
